@@ -8,11 +8,28 @@
 import GameComp from './components/GameComp.vue'
 import InstructionsComp from './components/InstructionsComp.vue';
 import SuccessComp from './components/SuccessComp.vue';
-import {ref} from 'vue'
+import {ref, onMounted} from 'vue'
 
 export default {
   name: 'App',
   setup() {
+    // adjust PC for mobile view
+    const setBodyDimensions = () => {
+      const isMobile = window.innerWidth <= 768; 
+
+      if (!isMobile) {
+        document.body.style.width = '350px';
+        document.body.style.height = '855px';
+      } else {
+        document.body.style.width = '';
+        document.body.style.height = '';
+      }
+    };
+
+    onMounted(() => {
+      setBodyDimensions();
+    });
+
     let readInstructions = ref(false)
     let gameEnded = ref(false)
     const approveGame = (data) => {

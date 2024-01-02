@@ -6,7 +6,6 @@
   </div>
   <audio autoplay loop>
       <source src="../assets/success-audio.wav" type="audio/mpeg">
-      <!-- Add multiple source elements for cross-browser compatibility -->
     </audio>
 </template>
 
@@ -51,7 +50,7 @@ export default {
         moveBackground() {
             this.bgMoveInterval = setInterval(() => {
                 this.bgPositionX -= this.speed;
-            }, 20); // Adjust interval for smoother movement
+            }, 20); 
         },
         handleClick() {
           this.resetAnimation()
@@ -92,9 +91,9 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.1); /* Initial color with 10% opacity */
-  pointer-events: none; /* Allows click events to pass through the overlay */
-  transition: opacity 0.5s ease; /* Smooth transition for opacity change */
+  background-color: rgba(0, 0, 0, 0.1);
+  pointer-events: none; 
+  transition: opacity 0.5s ease; 
 }
 
 .button { 
@@ -109,9 +108,9 @@ export default {
   overflow: hidden;
   position: relative;
   width: 100%;
-  height: 100vh; /* Adjust the height of the background */
+  height: 100vh;
   background-image: url('../assets/bg-image.jpg');
-  background-repeat: repeat-x; /* Repeat the background image horizontally */
+  background-repeat: repeat-x; 
   animation: slideBackground linear infinite;
 }
 .sheep {
@@ -150,7 +149,7 @@ export default {
 }
 
 @keyframes sheepMove {
-  0% { left: -100px; } /* Start position */
+  0% { left: -100px; }
   100% { left: calc(100%); }
 }
 
@@ -159,7 +158,7 @@ export default {
     background-position: 0 0;
   }
   to {
-    background-position: -100% 0; /* Adjust the distance to cover the background */
+    background-position: -100% 0; 
   }
 }
 

@@ -11,7 +11,6 @@
 </template>
 
 <script setup>
-// import ButtonComp from './ButtonComp.vue';
 import {ref} from 'vue'
 let display = ref(false)
 const instructions = {
