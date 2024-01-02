@@ -1,10 +1,8 @@
 <template>
   <div class="background" :style="{ backgroundPositionX: bgPositionX + 'px' }">
     <div class="overlay" :style="{ backgroundColor: overlayColor }"></div>
-    <div ref="mySheep" :class="{'sheep': !sheepClicked}" v-if="start" @click="handleClick" :style="{ '--sheep-top': sheepJumpTop }"></div>
+    <div :class="{'sheep': start, 'sheepMove': animate, 'visible': animate, 'none': !animate}" v-if="start" @click="handleClick" :style="{ '--sheep-Y': sheepLocationY }"></div>
     <ButtonComp v-if="!start" @click="initGame"></ButtonComp>
-    <span>{{ sheepCount }}</span>
-    <!-- Your content -->
   </div>
 </template>
 
@@ -19,19 +17,14 @@ export default {
             start: false,
             bgPositionX: 0,
             speed: 1,
-            overlayOpacity: 0,
-            maxClicks: 10,
+            maxClicks: 4,
             bgMoveInterval: null,
-            sheepJumpTop: '300px',
-            sheepClicked: false
+            sheepLocationY: '300px',
+            animate: true
         };
     },
     computed: {
-        sheepCount() {
-            return this.count;
-        },
         overlayColor() {
-            // Calculate the overlay color dynamically based on the number of clicks
             const opacity = Math.min(this.count / this.maxClicks, 1);
             return `rgba(0, 0, 0, ${opacity})`;
         }
@@ -43,27 +36,26 @@ export default {
             }, 20); // Adjust interval for smoother movement
         },
         handleClick() {
-            if (this.count === 9) {
+          this.resetAnimation()
+            if (this.count === 3) {
               alert('Time to sleep')
                 this.start = !this.start;
                 clearInterval(this.bgMoveInterval);
             }
             ++this.count;
-            this.sheepJumpTop = `${Math.floor(Math.random() * (700 - 100 + 1)) + 100}px`;
-            this.overlayOpacity += 0.1; // Increase opacity by 0.1 on each click
-            if (this.overlayOpacity >= 1) {
-                // When fully darkened after 10 clicks
-                this.overlayOpacity = 1;
-                // You can add more functionality here
-            }
-            // You can add more functionality here
+            this.sheepLocationY = `${Math.floor(Math.random() * ((window.innerHeight - 150) - 100 + 1)) + 100}px`;
         },
         initGame() {
             this.start = !this.start;
             this.moveBackground();
         },
-        bringSheepLeft() {
-          this.$refs.mySheep.style.class.r
+        resetAnimation() {
+          this.animate = false;
+          
+          setTimeout(() => {
+          this.animate = true;
+          });
+
         }
     },
     components: { ButtonComp }
@@ -99,20 +91,31 @@ export default {
   background-image: url('../assets/bg-image.jpg');
   background-repeat: repeat-x; /* Repeat the background image horizontally */
   animation: slideBackground linear infinite;
-    .sheep {
-      position: absolute;
-      transform: scaleX(-1);
-      width: 100px;
-      height: 100px;
-      background-image: url('../assets/sheep.png');
-      background-size: cover;
-      animation: sheepMove 5s linear infinite, sheepJump 2s infinite linear;
-    }
+}
+.sheep {
+  position: absolute;
+  transform: scaleX(-1);
+  width: 100px;
+  height: 100px;
+  background-image: url('../assets/sheep.png');
+  background-size: cover;
+}
+
+.sheepMove {
+  animation: sheepMove 5s linear infinite, sheepJump 2s linear infinite
+}
+
+.none {
+  display: none;
+}
+
+.visible {
+  display: block
 }
 
 @keyframes sheepJump {
-  0%, 100% { top: var(--sheep-top, 400px); }
-  50% { top: calc(var(--sheep-top, 400px) + 100px); }
+  0%, 100% { top: var(--sheep-Y, 400px); }
+  50% { top: calc(var(--sheep-Y, 400px) + 100px); }
 }
 
 @keyframes sheepMove {
