@@ -1,9 +1,10 @@
 <template>
 <div class="instruction-page pageEnter">
-    <h2>Counting Sheeps</h2>
-    <p>{{ msg }}</p>
+    <h2 :style="{'color': 'white', 'font-size': '40px'}">Counting Sheeps</h2>
+    <p :style="{'color': 'white' , 'font-size': '30px', 'margin-bottom': '0px'}">{{ instructions.title }}</p>
+    <p :style="{'color': 'white', 'font-size': '25px'}">{{ instructions.paragraph }}</p>
     <div class="btn-wrap">
-        <button @click="$emit('confirmInstructions', true)" :class="{'none': !display}">Let's Play</button>
+        <button :style="{minHeight: '25px'}" @click="$emit('confirmInstructions', true)" :class="{'none': !display}">Let's Play</button>
     </div>
     <img :class="{'none': !display}" src="../assets/sheeps-intro.gif"/>
 </div>
@@ -13,7 +14,10 @@
 // import ButtonComp from './ButtonComp.vue';
 import {ref} from 'vue'
 let display = ref(false)
-const msg = 'We will help you to fall a sleep. In this game you will count sheeps by clicking them. every time you count a sheep the screen will become a bit darker until you will fall a sleep :)'
+const instructions = {
+    title: `Let's aid your sleep!`,
+    paragraph: 'Count sheep by clicking them. As you count, the screen gradually darkens until you drift off. :)'
+}
 setTimeout(() => {
     display.value = true
 }, 2000)
@@ -24,7 +28,7 @@ setTimeout(() => {
 .instruction-page {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 90%;
     height: 105vh;
     background-color: black;
     padding-left: 20px;
@@ -53,12 +57,11 @@ setTimeout(() => {
     }
     h2 {
         font-size: 40px;
-        color: white;
     }
     p {
-        color: white;
         font-size: 30px;
     }
+ 
 }
 
 .pageEnter {

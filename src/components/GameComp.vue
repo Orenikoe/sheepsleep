@@ -33,7 +33,7 @@ export default {
             start: false,
             bgPositionX: 0,
             speed: 1,
-            maxClicks: 4,
+            maxClicks: 9,
             bgMoveInterval: null,
             sheepLocationY: '300px',
             animate: true,
@@ -55,7 +55,7 @@ export default {
         },
         handleClick() {
           this.resetAnimation()
-            if (this.count === 3) {
+            if (this.count === 8) {
                 this.handleVictory()
                 this.start = !this.start;
                 clearInterval(this.bgMoveInterval);
@@ -76,7 +76,7 @@ export default {
           
           setTimeout(() => {
           this.animate = true;
-          });
+          },1);
 
         }
     },
