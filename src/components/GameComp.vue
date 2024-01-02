@@ -2,7 +2,7 @@
   <div class="background" :style="{ backgroundPositionX: bgPositionX + 'px' }">
     <div class="overlay" :style="{ backgroundColor: overlayColor }"></div>
     <div :class="{'sheep': start, 'sheepMove': animate, 'visible': animate, 'none': !animate}" v-if="start" @click="handleClick" :style="{ '--sheep-Y': sheepLocationY }"></div>
-    <ButtonComp v-if="!start" @click="initGame"></ButtonComp>
+    <ButtonComp :class="{'cloudMoveUp': cloudClicked}" v-if="!start" @click="initGame"></ButtonComp>
   </div>
 </template>
 
@@ -20,7 +20,8 @@ export default {
             maxClicks: 4,
             bgMoveInterval: null,
             sheepLocationY: '300px',
-            animate: true
+            animate: true,
+            cloudClicked: false
         };
     },
     computed: {
@@ -46,7 +47,8 @@ export default {
             this.sheepLocationY = `${Math.floor(Math.random() * ((window.innerHeight - 150) - 100 + 1)) + 100}px`;
         },
         initGame() {
-            this.start = !this.start;
+          this.cloudClicked = true
+            setTimeout(() => this.start = !this.start, 1000)
             this.moveBackground();
         },
         resetAnimation() {
@@ -113,9 +115,18 @@ export default {
   display: block
 }
 
+.cloudMoveUp {
+  animation: cloudMoveUp 1s linear;
+}
+
 @keyframes sheepJump {
   0%, 100% { top: var(--sheep-Y, 400px); }
   50% { top: calc(var(--sheep-Y, 400px) + 100px); }
+}
+
+@keyframes cloudMoveUp {
+  0% { top: 50% }
+  100% { top: -10% }
 }
 
 @keyframes sheepMove {
