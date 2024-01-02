@@ -1,7 +1,7 @@
 <template>
     <div class="gif-wrap">
-        <h3>Good Night!</h3>
-        <img class="successgif" src="../assets/success-gif.gif"/>
+        <h3 :style="{'color': 'white'}">Good Night!</h3>
+        <img class="successgif" src="../assets/good-night.png"/>
     </div>
     </template>
     
@@ -20,12 +20,20 @@
         overflow: hidden;
         h3 {
             color: white;
+            -webkit-text-fill-color: white;
         }
     }
 
     .successgif {
         position: absolute;
         top: 20%;
+        animation: moonRise 2s ease-in;
+    }
+
+    @keyframes moonRise {
+        0% {top: 100%;}
+        100% {top: 20%;}
+        
     }
 
     </style>

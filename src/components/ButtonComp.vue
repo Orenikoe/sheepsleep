@@ -1,7 +1,7 @@
   <template>
     <div class="btn">
       <span class="title">Click To Start</span>
-      <img class="btn" src="../assets/cloud-btn.png"/>
+      <img class="btn-img" src="../assets/cloud-btn.png"/>
     </div>
   </template>
   
@@ -26,8 +26,9 @@
   color: black;
   z-index: 1;
 }
-img {
+.btn-img {
   width: 50%;
+  max-width: 200px;
 }
 }
 
