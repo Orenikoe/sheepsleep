@@ -1,9 +1,13 @@
 <template v-show="bgLoaded">
   <div @load="onBgImageLoad" class="background" :style="{ backgroundPositionX: bgPositionX + 'px' }">
     <div class="overlay" :style="{ backgroundColor: overlayColor }"></div>
-    <div :class="{'sheep': start, 'sheepMove': animate, 'visible': animate, 'none': !animate}" v-if="start" @click="handleClick" :style="{ '--sheep-Y': sheepLocationY }"></div>
+    <div :class="{'sheep': start, 'sheepMove': animate, 'visible': animate, 'none': !animate}" v-if="start" @click="handleClick()" :style="{ '--sheep-Y': sheepLocationY }"></div>
     <ButtonComp :class="{'cloudMoveUp': cloudClicked}" v-if="!start" @click="initGame"></ButtonComp>
   </div>
+  <audio autoplay loop>
+      <source src="../assets/success-audio.wav" type="audio/mpeg">
+      <!-- Add multiple source elements for cross-browser compatibility -->
+    </audio>
 </template>
 
 <script>
@@ -42,6 +46,7 @@ export default {
             return `rgba(0, 0, 0, ${opacity})`;
         }
     },
+    emits: ['gameEnd'],
     methods: {
         moveBackground() {
             this.bgMoveInterval = setInterval(() => {
@@ -51,7 +56,7 @@ export default {
         handleClick() {
           this.resetAnimation()
             if (this.count === 3) {
-              alert('Time to sleep')
+                this.handleVictory()
                 this.start = !this.start;
                 clearInterval(this.bgMoveInterval);
             }
@@ -62,6 +67,9 @@ export default {
           this.cloudClicked = true
             setTimeout(() => this.start = !this.start, 1000)
             this.moveBackground();
+        },
+        handleVictory() {
+          this.$emit('gameEnd', true)
         },
         resetAnimation() {
           this.animate = false;
