@@ -1,6 +1,6 @@
   <template>
     <div class="btn">
-      <span class="title">Swipe Me Up</span>
+      <span class="title">Click To Start</span>
       <img class="btn" src="../assets/cloud-btn.png"/>
     </div>
   </template>
