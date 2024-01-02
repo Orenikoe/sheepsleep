@@ -1,5 +1,5 @@
-<template>
-  <div class="background" :style="{ backgroundPositionX: bgPositionX + 'px' }">
+<template v-show="bgLoaded">
+  <div @load="onBgImageLoad" class="background" :style="{ backgroundPositionX: bgPositionX + 'px' }">
     <div class="overlay" :style="{ backgroundColor: overlayColor }"></div>
     <div :class="{'sheep': start, 'sheepMove': animate, 'visible': animate, 'none': !animate}" v-if="start" @click="handleClick" :style="{ '--sheep-Y': sheepLocationY }"></div>
     <ButtonComp :class="{'cloudMoveUp': cloudClicked}" v-if="!start" @click="initGame"></ButtonComp>
@@ -8,9 +8,21 @@
 
 <script>
 import ButtonComp from './ButtonComp.vue';
+import {ref} from 'vue'
 
 
 export default {
+  setup() {
+    const bgLoaded = ref(false);
+
+    const onBgImageLoad = () => {
+      bgLoaded.value = true;
+    };
+
+    return {
+      bgLoaded,
+      onBgImageLoad,
+    }},
     data() {
         return {
             count: 0,
