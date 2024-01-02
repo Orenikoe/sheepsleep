@@ -1,13 +1,28 @@
 <template>
-  <GameComp/>
+  <InstructionsComp @confirmInstructions="approveGame" v-if="!readInstructions"/>
+  <GameComp v-if="readInstructions"/>
 </template>
 
 <script>
 import GameComp from './components/GameComp.vue'
+import InstructionsComp from './components/InstructionsComp.vue';
+import {ref} from 'vue'
 
 export default {
   name: 'App',
+  setup() {
+    let readInstructions = ref(false)
+    const approveGame = (data) => {
+      readInstructions.value = data
+
+    }
+    return {
+      readInstructions,
+      approveGame
+    }
+  },
   components: {
+    InstructionsComp,
     GameComp
   }
 }
