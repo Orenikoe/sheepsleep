@@ -1,5 +1,8 @@
-<template v-if="rendered">
-  <div class="background" :style="{ backgroundPositionX: bgPositionX + 'px' }">
+<template>
+  <div v-if="!rendered" class="loader">
+    <img  src="../assets/loader.gif"/>
+  </div>
+  <div v-show="rendered" class="background" :style="{ backgroundPositionX: bgPositionX + 'px' }">
     <div class="overlay" :style="{ backgroundColor: overlayColor }"></div>
     <div :class="{'sheep': start, 'sheepMove': animate, 'visible': animate, 'none': !animate}" v-if="start" @click="handleClick()" :style="{ '--sheep-Y': sheepLocationY }"></div>
     <ButtonComp :class="{'cloudMoveUp': cloudClicked}" v-if="!start && rendered" @click="initGame"></ButtonComp>
@@ -27,7 +30,7 @@ export default {
             rendered: false
         };
     },
-    mounted() {this.rendered = true},
+    mounted() {setTimeout(() => this.rendered = true, 600)},
     computed: {
         overlayColor() {
             const opacity = Math.min(this.count / this.maxClicks, 1);
@@ -91,7 +94,13 @@ export default {
   background-color: white;
 }
 
-
+.loader {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+}
 
 .background {
   overflow: hidden;
