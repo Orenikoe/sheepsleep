@@ -15,7 +15,7 @@ import {ref} from 'vue'
 let display = ref(false)
 const instructions = {
     title: `Let's aid your sleep!`,
-    paragraph: 'Count sheep by clicking them. As you count, the screen gradually darkens until you drift off. :)'
+    paragraph: 'Count sheeps by clicking them. As you count, the screen gradually darkens until you drift off. :)'
 }
 setTimeout(() => {
     display.value = true
