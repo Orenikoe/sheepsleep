@@ -109,7 +109,7 @@ export default {
   position: relative;
   width: 100%;
   height: 100vh;
-  background-image: url('../assets/bg-image.jpg');
+  background-image: url('../assets/bg-image1.jpg');
   background-repeat: repeat-x; 
   animation: slideBackground linear infinite;
 }
