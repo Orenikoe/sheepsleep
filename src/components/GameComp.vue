@@ -1,11 +1,13 @@
 <template>
-  <div v-if="!rendered" class="loader">
+  <!-- <div v-if="!rendered" class="loader">
     <img  src="../assets/loader.gif"/>
-  </div>
+  </div> -->
   <div v-show="rendered" class="background" :style="{ backgroundPositionX: bgPositionX + 'px' }">
     <div class="overlay" :style="{ backgroundColor: overlayColor }"></div>
     <div :class="{'sheep': start, 'sheepMove': animate, 'visible': animate, 'none': !animate}" v-if="start" @click="handleClick()" :style="{ '--sheep-Y': sheepLocationY }"></div>
-    <ButtonComp :class="{'cloudMoveUp': cloudClicked}" v-if="!start && rendered" @click="initGame"></ButtonComp>
+    <template v-if="rendered">
+      <ButtonComp btn-text="Click To Start" :class="{'cloudMoveUp': cloudClicked}" v-if="!start" @click="initGame"></ButtonComp>
+    </template>
   </div>
   <audio autoplay loop>
       <source src="../assets/success-audio.wav" type="audio/mpeg">
@@ -30,7 +32,8 @@ export default {
             rendered: false
         };
     },
-    mounted() {setTimeout(() => this.rendered = true, 600)},
+    // mounted() {setTimeout(() => this.rendered = true, 600)},
+    mounted() {this.rendered = true},
     computed: {
         overlayColor() {
             const opacity = Math.min(this.count / this.maxClicks, 1);
