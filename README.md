@@ -94,3 +94,5 @@ The project uses environment variables for configuration. You can set them in a 
 ├── package.json          # Package configuration
 ├── yarn.lock             # Yarn lock file
 └── README.md             # Project documentation
+
+2025
